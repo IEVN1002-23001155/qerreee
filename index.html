@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="./log.png?v=2">
+<link rel="apple-touch-icon" href="./log.png?v=2">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="Genera códigos QR personalizados con tu logo. Una herramienta de ArtDedmon para crear y descargar QR en PNG y SVG desde tu navegador.">
+
+  <title>ArtDedmon — QR Studio</title>
+
+  <link rel="icon" type="image/png" href="./log.png">
+  <link rel="apple-touch-icon" href="./log.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <svg class="symbol-sheet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M7 17 17 7M7 7h10v10"/>
+      </symbol>
+
+      <symbol id="i-link" viewBox="0 0 24 24">
+        <path d="m10 13 4-4M8 16l-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2 1 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0" transform="translate(1 0)"/>
+      </symbol>
+
+      <symbol id="i-upload" viewBox="0 0 24 24">
+        <path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/>
+      </symbol>
+
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/>
+      </symbol>
+
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path d="m6 6 12 12M6 18 18 6"/>
+      </symbol>
+
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="m5 12 4 4L19 6"/>
+      </symbol>
+
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 3M4 15l2 3a7 7 0 0 0 12-1"/>
+      </symbol>
+
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="m12 3 8 3v6c0 4-8 9-8 9s-8-5-8-9V6l8-3Z"/>
+        <path d="m8 12 3 3 5-6"/>
+      </symbol>
+
+      <symbol id="i-code" viewBox="0 0 24 24">
+        <path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="ArtDedmon QR Studio, inicio">
+      <span class="brand-mark">
+        <img
+          src="./log.png"
+          alt="Logo original de ArtDedmon"
+          width="56"
+          height="53"
+        >
+      </span>
+
+      <span class="brand-copy">
+        <strong>ARTDEDMON<span class="red-dot">.</span></strong>
+        <span>QR STUDIO <b> / </b> PERSONAL TOOLS</span>
+      </span>
+    </a>
+
+    <div class="top-actions">
+      <span class="online"><i></i> EN TU NAVEGADOR</span>
+
+      <button class="help-button" id="help-open" type="button">
+        Cómo usarlo
+        <svg><use href="#i-arrow"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="eyebrow">
+        <span></span>
+        CONECTA LO FÍSICO CON LO DIGITAL
+      </div>
+
+      <h1 id="page-title">
+        TU ENLACE.<br>
+        <span>TU IDENTIDAD.</span>
+      </h1>
+
+      <p>
+        Convierte cualquier enlace en un QR con tu sello.<br class="desktop-break">
+        Personaliza, descarga y compártelo.
+      </p>
+
+      <div class="hero-index" aria-hidden="true">
+        QR<span>/</span>01
+        <small>DESIGNED TO CONNECT</small>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <section class="editor panel" aria-label="Personaliza tu código QR">
+        <div class="panel-top">
+          <span class="mono">01 / CONFIGURACIÓN</span>
+          <span class="small-tag">ESTUDIO CREATIVO</span>
+        </div>
+
+        <form id="qr-form" novalidate>
+          <section class="control-section">
+            <div class="section-label">
+              <span class="step">01</span>
+              <label for="url-input">Pega tu enlace</label>
+              <span class="required">REQUERIDO</span>
+            </div>
+
+            <div class="url-field">
+              <svg aria-hidden="true"><use href="#i-link"/></svg>
+
+              <input
+                id="url-input"
+                name="url"
+                type="text"
+                inputmode="url"
+                autocomplete="url"
+                autocapitalize="off"
+                spellcheck="false"
+                placeholder="https://tupagina.com"
+                maxlength="2400"
+                aria-describedby="url-hint url-error"
+                required
+              >
+            </div>
+
+            <p class="field-hint" id="url-hint">
+              Tu web, menú, redes o cualquier enlace público.
+            </p>
+
+            <p class="field-error" id="url-error" aria-live="polite" hidden></p>
+          </section>
+
+          <section class="control-section">
+            <div class="section-label">
+              <span class="step">02</span>
+              <span>Agrega tu identidad</span>
+              <span class="optional">OPCIONAL</span>
+            </div>
+
+            <input
+              type="file"
+              id="logo-input"
+              aria-label="Subir logo PNG"
+              accept="image/png,.png"
+              class="sr-only"
+            >
+
+            <div class="logo-box" id="drop-zone">
+              <div class="logo-thumb">
+                <img
+                  id="logo-thumb"
+                  src="./log.png"
+                  alt="Logo seleccionado para el centro del QR"
+                >
+              </div>
+
+              <div class="logo-details">
+                <strong id="logo-name">ArtDedmon · logo original</strong>
+                <span id="logo-caption">PNG · se conserva su proporción</span>
+
+                <div class="logo-actions">
+                  <button type="button" class="text-action" id="choose-logo">
+                    Cambiar PNG
+                    <svg aria-hidden="true"><use href="#i-upload"/></svg>
+                  </button>
+
+                  <button type="button" id="remove-logo" class="muted-action">
+                    Quitar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <p class="field-hint">
+              También puedes arrastrar un PNG aquí. Máximo 5 MB.
+            </p>
+
+            <p class="field-error" id="logo-error" aria-live="polite" hidden></p>
+
+            <div class="logo-size-row" id="logo-size-row">
+              <label for="logo-size">Tamaño del logo</label>
+
+              <input
+                id="logo-size"
+                type="range"
+                min="12"
+                max="22"
+                step="1"
+                value="22"
+              >
+
+              <output id="logo-size-value" for="logo-size">22%</output>
+            </div>
+          </section>
+
+          <section class="control-section appearance">
+            <div class="section-label">
+              <span class="step">03</span>
+              <span>Dale tu estilo</span>
+            </div>
+
+            <div class="style-grid">
+              <fieldset class="style-field">
+                <legend>Forma del QR</legend>
+
+                <div class="segmented">
+                  <button
+                    type="button"
+                    class="shape-option active"
+                    data-shape="square"
+                    aria-pressed="true"
+                  >
+                    <span class="shape-icon square"></span>
+                    Clásico
+                  </button>
+
+                  <button
+                    type="button"
+                    class="shape-option"
+                    data-shape="rounded"
+                    aria-pressed="false"
+                  >
+                    <span class="shape-icon rounded"></span>
+                    Suave
+                  </button>
+                </div>
+              </fieldset>
+
+              <div class="color-options">
+                <div>
+                  <label for="fg-color">Código</label>
+
+                  <label class="color-control">
+                    <input
+                      id="fg-color"
+                      type="color"
+                      value="#101014"
+                      aria-label="Color del código QR"
+                    >
+                    <span id="fg-value">#101014</span>
+                  </label>
+                </div>
+
+                <div>
+                  <label for="bg-color">Fondo</label>
+
+                  <label class="color-control">
+                    <input
+                      id="bg-color"
+                      type="color"
+                      value="#ffffff"
+                      aria-label="Color del fondo del código QR"
+                    >
+                    <span id="bg-value">#FFFFFF</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="palette-row">
+              <span>Paleta de marca</span>
+
+              <button
+                type="button"
+                class="palette-swatch active"
+                data-palette="#101014"
+                style="--swatch:#101014"
+                aria-label="QR negro"
+                aria-pressed="true"
+              ></button>
+
+              <button
+                type="button"
+                class="palette-swatch"
+                data-palette="#bb0000"
+                style="--swatch:#bb0000"
+                aria-label="QR rojo oscuro de alto contraste"
+                aria-pressed="false"
+              ></button>
+
+              <button
+                type="button"
+                class="palette-swatch"
+                data-palette="#4d1118"
+                style="--swatch:#4d1118"
+                aria-label="QR vino oscuro"
+                aria-pressed="false"
+              ></button>
+
+              <span class="contrast-pill" id="contrast-state">Contraste alto</span>
+            </div>
+
+            <p class="field-error" id="color-error" aria-live="polite" hidden></p>
+          </section>
+
+          <div class="form-bottom">
+            <button
+              class="primary-button generate-button"
+              id="generate-button"
+              type="submit"
+            >
+              Generar mi QR
+              <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+            </button>
+
+            <button
+              type="button"
+              class="reset-button"
+              id="reset-button"
+              aria-label="Reiniciar formulario"
+              title="Reiniciar"
+            >
+              <svg aria-hidden="true"><use href="#i-refresh"/></svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="preview-panel panel" aria-labelledby="preview-title">
+        <div class="panel-top">
+          <h2 class="mono" id="preview-title">02 / VISTA PREVIA</h2>
+          <span class="live-label"><i></i> LIVE</span>
+        </div>
+
+        <div class="preview-stage" id="preview-stage">
+          <span class="stage-label">ARTDEDMON / QR ENGINE</span>
+
+          <div class="qr-frame">
+            <span class="frame-corner tl"></span>
+            <span class="frame-corner tr"></span>
+            <span class="frame-corner bl"></span>
+            <span class="frame-corner br"></span>
+
+            <div
+              id="qr-preview"
+              class="qr-preview"
+              role="img"
+              aria-label="Código QR de ejemplo"
+            ></div>
+          </div>
+
+          <div class="preview-caption">
+            <span class="preview-badge" id="preview-badge">VISTA DE EJEMPLO</span>
+            <span id="preview-modules" class="mono">—</span>
+          </div>
+        </div>
+
+        <div class="preview-info">
+          <div class="destination-icon">
+            <svg aria-hidden="true"><use href="#i-link"/></svg>
+          </div>
+
+          <div>
+            <span class="info-label">ENLACE DE DESTINO</span>
+            <p id="destination-url">Tu próximo destino comienza con un enlace.</p>
+          </div>
+        </div>
+
+        <div class="export-section">
+          <div class="export-heading">
+            <label for="export-size">Resolución de descarga</label>
+            <span class="mono">PNG / SVG</span>
+          </div>
+
+          <select id="export-size">
+            <option value="800">800 × 800 px · Uso digital</option>
+            <option value="1600" selected>1600 × 1600 px · Alta resolución</option>
+            <option value="2400">2400 × 2400 px · Impresión</option>
+            <option value="3200">3200 × 3200 px · Máxima resolución</option>
+          </select>
+
+          <div class="download-actions">
+            <button id="download-png" class="primary-button" type="button" disabled>
+              <svg aria-hidden="true"><use href="#i-download"/></svg>
+              Descargar PNG
+            </button>
+
+            <button id="download-svg" class="secondary-button" type="button" disabled>
+              <svg aria-hidden="true"><use href="#i-code"/></svg>
+              SVG
+            </button>
+          </div>
+
+          <p class="download-hint" id="download-hint">
+            Agrega tu enlace para habilitar las descargas.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="trust-strip">
+      <p>
+        <svg aria-hidden="true"><use href="#i-shield"/></svg>
+        Tus enlaces y logos se procesan en tu dispositivo.
+      </p>
+
+      <span>
+        QR DIRECTO <b> / </b>
+        SIN CADUCIDAD IMPUESTA <b> / </b>
+        SIN REGISTRO
+      </span>
+    </div>
+
+    <aside class="scan-note">
+      <span>ANTES DE COMPARTIR</span>
+      <p>
+        Prueba el QR con la cámara de tu celular.
+        Si vas a imprimirlo, compruébalo también al tamaño final.
+      </p>
+    </aside>
+  </main>
+
+  <footer>
+    <span>ARTDEDMON<span class="red-dot">.</span> <b>QR STUDIO</b></span>
+    <span>CREA. CONECTA. COMPARTE.</span>
+    <span>PERSONAL EDITION / 01</span>
+  </footer>
+
+  <div class="toast" role="status" id="toast" hidden>
+    <svg aria-hidden="true"><use href="#i-check"/></svg>
+    <span id="toast-text"></span>
+  </div>
+
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-top">
+      <span class="eyebrow">GUÍA RÁPIDA</span>
+
+      <button
+        class="reset-button"
+        id="help-close"
+        type="button"
+        aria-label="Cerrar guía"
+      >
+        <svg><use href="#i-close"/></svg>
+      </button>
+    </div>
+
+    <h2 id="help-title">Un enlace. Tu propio QR.</h2>
+
+    <ol>
+      <li>
+        <strong>Pega el enlace.</strong>
+        Si omites https://, se agrega automáticamente.
+      </li>
+
+      <li>
+        <strong>Elige tu PNG.</strong>
+        Usa el logo de ArtDedmon, carga otro o quítalo.
+        La imagen conserva sus proporciones.
+      </li>
+
+      <li>
+        <strong>Personaliza.</strong>
+        Cambia el color, la forma y el tamaño del logo.
+        El QR debe ser oscuro sobre un fondo claro.
+      </li>
+
+      <li>
+        <strong>Descarga y prueba.</strong>
+        PNG para tus diseños y SVG para escalar el código sin perder definición.
+        El logo mantiene la resolución de su imagen.
+      </li>
+    </ol>
+
+    <p class="dialog-note">
+      El QR guarda el enlace directamente. No depende de un servicio de
+      redirección ni tiene una fecha de caducidad impuesta; seguirá llevando
+      al mismo enlace mientras ese destino exista. Para cambiar el destino,
+      genera otro QR.
+    </p>
+
+    <button class="primary-button" id="help-done" type="button">
+      Entendido
+      <svg aria-hidden="true"><use href="#i-check"/></svg>
+    </button>
+  </dialog>
+
+  <noscript>
+    Activa JavaScript en tu navegador para generar y descargar códigos QR.
+  </noscript>
+
+  <script src="https://www.nayuki.io/res/qr-code-generator-library/qrcodegen.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
